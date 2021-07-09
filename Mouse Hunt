@@ -1,0 +1,73 @@
+/*
+    Programmer : Alexandru_Olteanu
+    Link To Problem : https://codeforces.com/contest/1027/problem/D
+*/
+
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+ll const mod=1000000007;
+ll const md=998244353;
+ll mypowr(ll a,ll b) {ll res=1;if(b<0)b=0;a%=mod; assert(b>=0);
+for(;b;b>>=1){if(b&1)res=res*a%mod;a=a*a%mod;}return res;}
+ll mypow(ll a,ll b) {ll res=1;if(b<0)b=0;assert(b>=0);
+for(;b;b>>=1){if(b&1)res=res*a;a=a*a;}return res;}
+ifstream in("input.txt");
+ofstream out("output.txt");
+#define mp make_pair
+#define pb push_back
+#define pf push_front
+#define fi first
+#define se second
+#define all(x) x.begin(),x.end()
+
+//#define cin in
+//#define cout out
+
+const int maxn = 2e5 + 5;
+int deg[maxn],q[maxn],a[maxn],c[maxn];
+
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    cout<<fixed<<setprecision(15);
+
+    ll n;cin>>n;
+    for(int i=1;i<=n;++i){
+        cin>>c[i];
+    }
+    for(int i=1;i<=n;++i){
+        cin>>a[i];
+        ++deg[a[i]];
+    }
+    int Top=1;
+    for(int i=1;i<=n;++i){
+        if(deg[i]==0){
+            q[Top++]=i;
+        }
+    }
+    for(int i=1;i<Top;++i){
+        int v=q[i];
+        --deg[a[v]];
+        if(deg[a[v]]==0){
+            q[Top++]=a[v];
+        }
+    }
+    ll cnt=0;
+    for(int i=1;i<=n;++i){
+        if(deg[i]==0)continue;
+        ll mini=c[i],x=i;
+        while(deg[x]!=0){
+            mini=min(mini,ll(c[x]));
+            deg[x]=0;
+            x=a[x];
+        }
+        cnt+=mini;
+    }
+
+
+    cout<<cnt<<'\n';
+
+    return 0;
+}
