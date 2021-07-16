@@ -1,0 +1,121 @@
+/*
+    Programmer : Alexandru_Olteanu
+    Link To Problem : https://codeforces.com/contest/1264/problem/B
+*/
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+typedef pair<int,int> pii;
+typedef pair<ll,ll> pll;
+ll const mod=1000000007LL;
+ll const mod2 = 100000000LL;
+ll const md=998244353LL;
+ll mypowr(ll a,ll b) {ll res=1;if(b<0)b=0;a%=mod; assert(b>=0);
+for(;b;b>>=1){if(b&1)res=res*a%mod;a=a*a%mod;}return res;}
+ll mypow(ll a,ll b) {ll res=1;if(b<0)b=0;assert(b>=0);
+for(;b;b>>=1){if(b&1)res=res*a;a=a*a;}return res;}
+ifstream in("input.txt");
+ofstream out("output.txt");
+#define mp make_pair
+#define pb push_back
+#define pf push_front
+#define fi first
+#define se second
+#define all(x) x.begin(),x.end()
+#define rall(x) x.rbegin(), x.rend()
+
+
+//#define cin in
+//#define cout out
+
+const ll infll = 9e18;
+const int inf = 2e9;
+const ll maxn = 2e5 + 2;
+
+int a[maxn];
+
+ll dist(ll x, ll y, ll z){
+    if(x >= y && y >= z)return 0;
+    if(x <= y && y <= z)return 0;
+    return 1;
+}
+
+vector<int> res, res1;
+
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    cout<<fixed<<setprecision(15);
+    
+    int test = 1;
+    //cin>>test;
+    while(test--){
+        int a, b, c, d;
+        cin>>a>>b>>c>>d;
+        if(a > b + 1 || d > c + 1){
+            cout<<"NO\n";
+            return 0;
+        }
+        if(a == b + 1){
+            if(c == 0 && d == 0){
+                cout<<"YES\n";
+                for(int i = 1; i < a; ++i)cout<<"0 1 ";
+                cout<<"0";
+                return 0;
+            }
+            else{
+                cout<<"NO\n";
+                return 0;
+            }
+        }
+        if(d == c + 1){
+            if(a == 0 && b == 0){
+                cout<<"YES\n";
+                cout<<"3 ";
+                for(int i = 1; i <= c; ++i)cout<<"2 3 ";
+                return 0;
+            }
+            else{
+                cout<<"NO\n";
+                return 0;
+            }
+        }
+        for(int i = 1; i <= a; ++i){
+            res.pb(0);
+            res.pb(1);
+        }
+        b -= a;
+        for(int i = 1; i <= d; ++i){
+            res1.pb(3);
+            res1.pb(2);
+        }
+        c -= d;
+        for(int i = 0; i <= 1; ++i){
+            for(int j = 0; j <= 1; ++j){
+                int a1 = b, b1 = c;
+                if(i == 1)--a1;
+                if(j == 1)--b1;
+                if(a1 != b1)continue;
+                cout<<"YES\n";
+                if(i == 1)cout<<"1 ";
+                for(auto u:res){
+                    cout<<u<<" ";
+                }
+                for(int i = 1; i <= a1; ++i){
+                    cout<<"2 1 ";
+                }
+                reverse(res1.begin(), res1.end());
+                for(auto u:res1){
+                    cout<<u<<" ";
+                }
+                if(j == 1)cout<<"2 ";
+                return 0;
+            }
+        }
+        cout<<"NO\n";
+
+    }
+
+    return 0;
+}
