@@ -1,0 +1,66 @@
+/*
+    Programmer : Alexandru_Olteanu
+    Link To Problem : https://codeforces.com/contest/1178/problem/E
+*/
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+typedef pair<int,int> pii;
+typedef pair<ll,ll> pll;
+ll const mod=1000000007LL;
+ll const mod2 = 100000000LL;
+ll const md=998244353LL;
+ll mypowr(ll a,ll b) {ll res=1;if(b<0)b=0;a%=mod; assert(b>=0);
+for(;b;b>>=1){if(b&1)res=res*a%mod;a=a*a%mod;}return res;}
+ll mypow(ll a,ll b) {ll res=1;if(b<0)b=0;assert(b>=0);
+for(;b;b>>=1){if(b&1)res=res*a;a=a*a;}return res;}
+ifstream in("input.txt");
+ofstream out("output.txt");
+#define mp make_pair
+#define pb push_back
+#define pf push_front
+#define fi first
+#define se second
+#define all(x) x.begin(),x.end()
+#define rall(x) x.rbegin(), x.rend()
+
+
+//#define cin in
+//#define cout out
+
+const ll infll = 9e18;
+const int inf = 2e9;
+const ll maxn = 1e5 + 2;
+
+int a[305], c[305];
+
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    cout<<fixed<<setprecision(15);
+    
+    int test = 1;
+    //cin>>test;
+    while(test--){
+        string s;cin>>s;
+        string t = "";
+        int n = s.size();
+        int l = 0, r = n - 1;
+        while(l + 1 < r - 1){
+            int c = 'a';
+            if(s[l] == s[r] || s[l] == s[r - 1])c = s[l];
+            if(s[l + 1] == s[r] || s[l + 1] == s[r - 1])c = s[l + 1];
+            t += c;
+            l += 2;
+            r -= 2;
+        }
+        string t1 = t;
+        reverse(t1.begin(), t1.end());
+        if(n % 4 != 0)t += s[n / 2];
+        t += t1;
+        cout<<t<<'\n';
+    }
+
+    return 0;
+}
