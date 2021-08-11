@@ -1,0 +1,94 @@
+/*
+    Programmer : Alexandru_Olteanu
+    Link To Problem : https://codeforces.com/contest/612/problem/D
+*/
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+typedef pair<int,int> pii;
+typedef pair<ll,ll> pll;
+ll const mod=1000000007LL;
+ll const mod2 = 100000000LL;
+ll const md=998244353LL;
+ll mypowr(ll a,ll b) {ll res=1;if(b<0)b=0;a%=mod; assert(b>=0);
+for(;b;b>>=1){if(b&1)res=res*a%mod;a=a*a%mod;}return res;}
+ll mypow(ll a,ll b) {ll res=1;if(b<0)b=0;assert(b>=0);
+for(;b;b>>=1){if(b&1)res=res*a;a=a*a;}return res;}
+ifstream in("input.txt");
+ofstream out("output.txt");
+#define mp make_pair
+#define pb push_back
+#define pf push_front
+#define fi first
+#define se second
+#define all(x) x.begin(),x.end()
+#define rall(x) x.rbegin(), x.rend()
+
+
+//#define cin in
+//#define cout out
+
+const ll infll = 9e18;
+const int inf = 2e9;
+const ll maxn = 2e5 + 2;
+
+vector<pii> v, res;
+
+bool cmp(pii x, pii y){
+    if(x.fi < y.fi)return true;
+    if(x.fi > y.fi)return false;
+    return (x.se > y.se);
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    cout<<fixed<<setprecision(15);
+    
+
+    int test = 1;
+    //cin>>test;
+    while(test--){
+        int n, k;
+        cin>>n>>k;
+        for(int i = 1; i <= n; ++i){
+            int x, y;
+            cin>>x>>y;
+            v.pb({x, 1});
+            v.pb({y, -1});
+        }
+        sort(all(v), cmp);
+        int u = 2 * n;
+        int l1 = -1;
+        int sum = 0;
+        for(int i = 0; i < u; ++i){
+            if(i == 0){
+                ++sum;
+                if(sum == k)l1 = i;
+                continue;
+            }
+            int x = v[i - 1].fi, y = v[i].fi;
+            if(v[i].se > 0)--y;
+            if(sum == k && v[i].se < 0){
+                res.pb({v[l1].fi, y});
+                l1 = -1;
+                --sum;
+                continue;
+            }
+            sum += v[i].se;
+            if(sum >= k && l1 < 0)l1 = i;
+        }
+        if(l1 >= 0){
+            res.pb({v[l1].fi, v[u - 1].fi});
+        }
+
+        cout<<res.size()<<'\n';
+        for(auto u:res){
+            cout<<u.fi<<" "<<u.se<<'\n';
+        }
+    }
+
+
+    return 0;
+}
