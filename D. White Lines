@@ -1,0 +1,125 @@
+/*
+    Programmer : Alexandru_Olteanu
+    Link To Problem : https://codeforces.com/contest/1200/problem/D
+*/
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+typedef pair<int,int> pii;
+typedef pair<ll,ll> pll;
+ll const mod=1000000007LL;
+ll const mod2=998244353LL;
+ll mypowr(ll a,ll b) {ll res=1;if(b<0)b=0;a%=mod; assert(b>=0);
+for(;b;b>>=1){if(b&1)res=res*a%mod;a=a*a%mod;}return res;}
+ll mypow(ll a,ll b) {ll res=1;if(b<0)b=0;assert(b>=0);
+for(;b;b>>=1){if(b&1)res=res*a;a=a*a;}return res;}
+ifstream in("input.txt");
+ofstream out("output.txt");
+#define mp make_pair
+#define pb push_back
+#define pf push_front
+#define fi first
+#define se second
+#define all(x) x.begin(),x.end()
+#define rall(x) x.rbegin(), x.rend()
+
+
+//#define cin in
+//#define cout out
+
+const ll infll = 9e18;
+const int inf = 2e9;
+const ll maxn = 2e3 + 2;
+
+char a[maxn][maxn];
+int row[maxn][maxn], col[maxn][maxn];
+int r[maxn], c[maxn];
+
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    cout<<fixed<<setprecision(15);
+
+
+
+    int test = 1;
+    //cin>>test;
+    while(test--){
+        int n, k;
+        cin>>n>>k;
+        for(int i = 1; i <= n; ++i){
+            for(int j = 1; j <= n; ++j){
+                cin>>a[i][j];
+            }
+        }
+        int cnt = 0;
+        for(int i = 1; i <= n; ++i){
+            bool ok = 1;
+            for(int j = 1; j <= n; ++j){
+                if(a[i][j] == 'B'){
+                    ok = 0;++r[i];
+                }
+            }            
+            cnt += ok;
+            ok = 1;
+            for(int j = 1; j <= n; ++j){
+                if(a[j][i] == 'B'){
+                    ok = 0; ++c[i];
+                }
+            }
+            cnt += ok;
+        }
+        for(int i = 1; i <= n; ++i){
+            int sum = 0;
+            for(int j = 1; j <= k; ++j)sum += (a[i][j] == 'B');
+            int j = k;
+            while(j <= n){
+                if(sum == r[i] && sum > 0){
+                    ++row[i][j - k + 1];
+                    int t = max(1, i - k + 1);
+                    --row[t - 1][j - k + 1];
+                }
+                ++j;
+                if(j <= n){
+                    if(a[i][j] == 'B')++sum;
+                    if(a[i][j - k] == 'B')--sum;
+                }
+            }
+            sum = 0;
+            for(j = 1; j <= k; ++j)sum += (a[j][i] == 'B');
+            j = k;
+            while(j <= n){
+                if(sum == c[i] && sum > 0){
+                    ++col[j - k + 1][i];
+                    int t = max(1, i - k + 1);
+                    --col[j - k + 1][t - 1];
+                }
+                ++j;
+                if(j <= n){
+                    if(a[j][i] == 'B')++sum;
+                    if(a[j - k][i] == 'B')--sum;
+                }
+            }
+        }
+        for(int i = 1; i <= n; ++i){
+            for(int j = n; j >= 1; --j){
+                col[i][j] += col[i][j + 1];
+                row[j][i] += row[j + 1][i];
+            }
+        }
+        int final_cnt = 0;
+        for(int i = 1; i <= n; ++i){
+            for(int j = 1; j <= n; ++j){
+                final_cnt = max(final_cnt, row[i][j] + col[i][j]); 
+            }
+        }
+        final_cnt += cnt;
+        cout<<final_cnt<<'\n';
+
+    }
+    
+
+
+    return 0;
+}
