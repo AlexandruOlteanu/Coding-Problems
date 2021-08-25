@@ -1,0 +1,114 @@
+/*
+    Programmer : Alexandru_Olteanu
+    Link To Problem : https://codeforces.com/problemset/problem/1207/E
+*/
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+typedef pair<int,int> pii;
+typedef pair<ll,ll> pll;
+ll const mod=1000000007LL;
+ll const mod2=998244353LL;
+ll mypowr(ll a,ll b) {ll res=1;if(b<0)b=0;a%=mod; assert(b>=0);
+for(;b;b>>=1){if(b&1)res=res*a%mod;a=a*a%mod;}return res;}
+ll mypow(ll a,ll b) {ll res=1;if(b<0)b=0;assert(b>=0);
+for(;b;b>>=1){if(b&1)res=res*a;a=a*a;}return res;}
+ifstream in("input.txt");
+ofstream out("output.txt");
+#define mp make_pair
+#define pb push_back
+#define pf push_front
+#define fi first
+#define se second
+#define all(x) x.begin(),x.end()
+#define rall(x) x.rbegin(), x.rend()
+
+
+//#define cin in
+//#define cout out
+
+const ll infll = 9e18;
+const int inf = 2e9;
+const ll maxn = 1e6 + 2;
+
+
+
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    cout<<fixed<<setprecision(15);
+
+    
+    int test = 1;
+    string s;
+    //cin>>test;
+    ll cnt = 0;
+    int nr = 0;
+    while(test--){
+        cout<<"? ";
+        ll power = (1 << 8) - 1;
+        int nr = 0;
+        for(int i = 0; i < power && nr < 100; ++i){
+            s = "#11111111111111";
+            int sum = 1, k = i;
+            while(k){
+                if(k % 2){
+                    s[sum] = '0';
+                }
+                k /= 2;
+                ++sum;
+            }
+            ll x = 0;
+            for(int p = 14; p >= 1; --p){
+                x = x * 2 + (s[p] == '1');
+            }
+            cout<<x<<" ";
+            ++nr;
+        }
+        cout<<endl;
+        nr = 0;
+        int x, y;
+        nr = 0;
+        cin>>x;
+        for(int i = 7; i < 14; ++i){
+            int bit = x ^ (1 << i);
+            if(bit & (1 << i)){
+                cnt ^= (1 << i);
+            }
+        }
+        cout<<"? ";
+        for(int i = 1; i < power && nr < 100; ++i){
+            s = "#11111111111111";
+            int sum = 8, k = i;
+            while(k){
+                if(k % 2){
+                    s[sum] = '0';
+                }
+                k /= 2;
+                ++sum;
+            }
+            ll x = 0;
+            for(int p = 14; p >= 1; --p){
+                x = x * 2 + (s[p] == '1');
+            }
+            cout<<x<<" ";
+            ++nr;
+        }
+
+
+        cout<<endl;
+        cin>>y;
+        for(int i = 0; i < 7; ++i){
+            int bit = y ^ (1 << i);
+            if(bit & (1 << i)){
+                cnt ^= (1 << i);
+            }
+        }
+        cout<<"! "<<cnt<<endl;
+
+    }
+
+
+    return 0;
+}
