@@ -1,5 +1,6 @@
 /*
     Programmer : Alexandru_Olteanu
+    Link To Problem : https://www.codechef.com/START10B/problems/SIGNFLIP
 */
 #include<bits/stdc++.h>
 using namespace std;
