@@ -1,5 +1,6 @@
 /*
     Programmer : Alexandru_Olteanu
+    Link To Problem : https://www.codechef.com/CDMN21B/problems/RUMBLING
 */
 #include<bits/stdc++.h>
 using namespace std;
