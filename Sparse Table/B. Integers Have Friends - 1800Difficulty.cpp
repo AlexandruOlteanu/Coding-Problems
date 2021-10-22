@@ -1,5 +1,6 @@
 /*
     Programmer : Alexandru Olteanu
+    Link To Problem : https://codeforces.com/contest/1548/problem/B
 */
 #include<bits/stdc++.h>
 using namespace std;
